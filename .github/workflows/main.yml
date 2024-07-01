@@ -57,5 +57,36 @@ jobs:
         run: |
           docker build -t tanujarora27/santa-app:latest .
 
+      - name: Run Trivy Scan 
+        uses: aquasecurity/trivy-action@master
+        with: 
+          image-ref : 'tanujarora27/santa-app:latest'
+          format: 'table'
+          severity : 'CRITICAL,HIGH'
+          ignore-unfixed: true
+          exit-code: '1'
+          output: 'trivy-report.txt'
+        
+      - name: Upload Trivy scan results
+        uses: actions/upload-artifact@v3
+        with:
+          name: trivy-report
+          path: trivy-report.txt
+      
+      - name: Send Trivy Report to the client
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Trivy Scan Report
+          body: |
+            Trivy Scan Report
+          to: ${{ secrets.CLIENT_EMAIL }}
+          from: GITHUB ACTIONS
+          attachments: trivy-results.txt
+
       - name: Push Docker image
         run: docker push tanujarora27/santa-app:latest
+     
