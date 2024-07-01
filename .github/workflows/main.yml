@@ -55,7 +55,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t tanujarora27/santa-app:latest .
+          docker build -t tanujarora2703/santa-app:latest .
 
       - name: Push Docker image
-        run: docker push tanujarora27/santa-app:latest
+        run: docker push tanujarora2703/santa-app:latest
