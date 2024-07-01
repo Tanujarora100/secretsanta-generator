@@ -25,6 +25,7 @@ jobs:
 
       - name: Test the package
         run: mvn test
+    
 
   build_image_deploy:
     runs-on: ubuntu-latest
@@ -41,7 +42,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t tanujarora27/${{secrets.DOCKER_REPO}}:latest .
+        run: |
+          docker build -t secret-santa .
+          docker tag secret-santa:latest tanujarora/secret-santa:latest
+          docker push tanujgym/${{secrets.DOCKER_REPO}}:latest
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
