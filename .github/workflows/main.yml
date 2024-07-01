@@ -57,7 +57,7 @@ jobs:
         run: |
           docker build -t secret-santa .
           docker tag secret-santa:latest tanujarora/secret-santa:latest
-          docker push tanujgym/${{secrets.DOCKER_REPO}}:latest
+          docker push tanujarora27/$santa-app:latest
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
