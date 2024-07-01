@@ -1,4 +1,4 @@
-FROM openjdk:8u151-jdk-alpine3.8
+FROM openjdk:11.0.10-jdk-slim
   
 EXPOSE 8080
  
